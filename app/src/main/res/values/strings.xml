@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PlaceMe</string>
+    <string name="registeration">Registeration</string>
+    <string name="name">Name</string>
+    <string name="cgpa">CGPA</string>
+    <string name="roll_no">Roll No.</string>
+    <string name="select_branch">Select Branch</string>
+    <string name="ece">ECE</string>
+    <string name="csam">CSAM</string>
+    <string name="csd">CSD</string>
+    <string name="itss">ITSS</string>
+    <string name="cse">CSE</string>
+    <string name="select_degree">Select Degree</string>
+    <string name="btech">BTech</string>
+    <string name="mtech">Mtech</string>
+    <string name="upload_resume">Upload Resume</string>
+    <string name="i_accept_all_terms_and_conditions">I accept all terms and conditions</string>
+    <string name="register">Register</string>
 </resources>

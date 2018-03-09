@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
         // do something when the button is clicked
     }
 
@@ -72,13 +73,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             // Signed in successfully, show authenticated UI.
             Intent intent = new Intent(this, MainActivity.class);
+            Log.d("Clicked ","done");
+
             startActivity(intent);
             //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            //Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            Log.w("yolo", "signInResult:failed code=" + e.getStatusCode());
             //updateUI(null);
         }
+    }
+    public void test(View v)
+    {
+        Intent registerIntent=new Intent(this,Register.class);
+        startActivity(registerIntent);
+    }
+    public void test2(View v)
+    {
+        Intent adminIntent=new Intent(this,Admin.class);
+        startActivity(adminIntent);
     }
 }

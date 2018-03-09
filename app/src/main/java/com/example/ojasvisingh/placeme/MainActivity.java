@@ -3,9 +3,12 @@ package com.example.ojasvisingh.placeme;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -23,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
 
         findViewById(R.id.sign_out_button).setOnClickListener(this);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personId = acct.getId();
+            Log.v("Main",personId);
+        }
     }
 
     @Override
