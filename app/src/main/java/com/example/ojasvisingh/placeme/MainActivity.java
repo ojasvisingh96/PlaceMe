@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mGoogleApiClient.disconnect();
             mGoogleApiClient.connect();
         }
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+
+        finish();
     }
 }

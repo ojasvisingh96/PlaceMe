@@ -1,6 +1,7 @@
 package com.example.ojasvisingh.placeme;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +12,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,8 +51,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
         else {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            CollectionReference studentDB= FirebaseFirestore.getInstance().collection("students");
+            DocumentReference docRef = studentDB.document(account.getId());
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null && document.exists()) {
+                            Log.d("success", "DocumentSnapshot data: " + document.getData());
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Log.d("Err", "No such document");
+                            Intent intent = new Intent(getApplicationContext(), Register.class);
+                            startActivity(intent);
+                        }
+                    } else {
+                        Log.d("err", "get failed with ", task.getException());
+                    }
+                }
+            });
+
         }
     }
 
@@ -72,10 +101,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            Intent intent = new Intent(this, MainActivity.class);
-            Log.d("Clicked ","done");
-
-            startActivity(intent);
+            CollectionReference studentDB= FirebaseFirestore.getInstance().collection("students");
+            DocumentReference docRef = studentDB.document(account.getId());
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null && document.exists()) {
+                            Log.d("success", "DocumentSnapshot data: " + document.getData());
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Log.d("Err", "No such document");
+                            Intent intent = new Intent(getApplicationContext(), Register.class);
+                            startActivity(intent);
+                        }
+                    } else {
+                        Log.d("err", "get failed with ", task.getException());
+                    }
+                }
+            });
             //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -83,15 +129,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Log.w("yolo", "signInResult:failed code=" + e.getStatusCode());
             //updateUI(null);
         }
-    }
-    public void test(View v)
-    {
-        Intent registerIntent=new Intent(this,Register.class);
-        startActivity(registerIntent);
-    }
-    public void test2(View v)
-    {
-        Intent adminIntent=new Intent(this,Admin.class);
-        startActivity(adminIntent);
     }
 }

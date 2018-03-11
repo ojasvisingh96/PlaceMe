@@ -44,9 +44,13 @@ public class Register extends AppCompatActivity {
             degreeRegister=((RadioButton)findViewById(degree.getCheckedRadioButtonId())).getText().toString();
         Log.d("test ",nameRegister+cgpaRegister+rollRegister+branchRegister+degreeRegister);
         CheckBox acceptRegister=findViewById(R.id.acceptRegister);
+
         if(acceptRegister.isChecked()&&nameRegister.equals("")==false&&cgpaRegister.equals("")==false&&rollRegister.equals("")==false&&branchRegister.equals("")==false&&degreeRegister.equals("")==false)
         {
-            DocumentReference studentDB= FirebaseFirestore.getInstance().document("students/panther5");  //creating a document for storing student record under students collection
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            String personId = acct.getId();
+
+            DocumentReference studentDB= FirebaseFirestore.getInstance().document("students/" + personId);  //creating a document for storing student record under students collection
             HashMap<String,String> studentRec=new HashMap<>();
             OnSuccessListener insertRec=new OnSuccessListener() {
                 @Override

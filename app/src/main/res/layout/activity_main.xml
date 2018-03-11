@@ -7,6 +7,8 @@
     android:gravity="center"
     tools:context="com.example.ojasvisingh.placeme.MainActivity">
 
+
+
     <Button
         android:id="@+id/sign_out_button"
         android:layout_height="wrap_content"
