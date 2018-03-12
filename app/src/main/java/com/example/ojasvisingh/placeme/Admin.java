@@ -6,6 +6,8 @@ package com.example.ojasvisingh.placeme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,18 +23,58 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class Admin extends AppCompatActivity {
-    ArrayList<String> studentRecs=new ArrayList<>();
-    ListView studentList;
-    ArrayAdapter studentListAd;
 
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        studentList=findViewById(R.id.studentList);
-        studentListAd=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,studentRecs);
-        studentList.setAdapter(studentListAd);
+
+        //recycle view
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_other_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        final ArrayList<ArrayList<String>> myDataset = new ArrayList<>();
+
+        mAdapter = new MyOtherAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
+        CollectionReference jobsDB= FirebaseFirestore.getInstance().collection("students");
+        jobsDB.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                for(DocumentSnapshot jobRec: documentSnapshots.getDocuments())
+                {
+                    ArrayList<String> temp = new ArrayList<String>();
+                    temp.add(jobRec.get("name").toString());
+                    temp.add(jobRec.get("roll").toString());
+                    temp.add(jobRec.get("degree").toString());
+                    temp.add(jobRec.get("branch").toString());
+                    temp.add(jobRec.get("cgpa").toString());
+
+                    myDataset.add(temp);
+                }
+
+//                Log.w("recycle", myDataset.toString());
+                Log.w("recycle", "" + mAdapter.getItemCount() );
+                // specify an adapter (see also next example)
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -41,24 +83,6 @@ public class Admin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        CollectionReference studentDB= FirebaseFirestore.getInstance().collection("students");
-        Log.d("student rec",studentDB.toString());
-        studentDB.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-                for(DocumentSnapshot studentRec: documentSnapshots.getDocuments())
-                {
-                    String studentRecstr=studentRec.getData().toString();
-                    Log.d("student record ",studentRecstr);
-                    if(studentRecs.contains(studentRecstr)==false) {
-                        studentRecs.add(studentRecstr);
-                        studentListAd.notifyDataSetChanged();
-                    }
-
-                }
-
-            }
-        });
     }
     public void viewJobs(View v)
     {
