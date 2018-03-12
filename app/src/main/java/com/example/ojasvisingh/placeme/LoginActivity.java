@@ -100,28 +100,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
-            CollectionReference studentDB= FirebaseFirestore.getInstance().collection("students");
-            DocumentReference docRef = studentDB.document(account.getId());
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document != null && document.exists()) {
-                            Log.d("success", "DocumentSnapshot data: " + document.getData());
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
+            String id = account.getId();
+
+            if (id.equals("102971297704242489734")){
+                Intent intent = new Intent(getApplicationContext(), Admin.class);
+                startActivity(intent);
+            }
+
+            else {
+
+                // Signed in successfully, show authenticated UI.
+                CollectionReference studentDB = FirebaseFirestore.getInstance().collection("students");
+                DocumentReference docRef = studentDB.document(id);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null && document.exists()) {
+                                Log.d("success", "DocumentSnapshot data: " + document.getData());
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Log.d("Err", "No such document");
+                                Intent intent = new Intent(getApplicationContext(), Register.class);
+                                startActivity(intent);
+                            }
                         } else {
-                            Log.d("Err", "No such document");
-                            Intent intent = new Intent(getApplicationContext(), Register.class);
-                            startActivity(intent);
+                            Log.d("err", "get failed with ", task.getException());
                         }
-                    } else {
-                        Log.d("err", "get failed with ", task.getException());
                     }
-                }
-            });
+                });
+
+            }
             //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

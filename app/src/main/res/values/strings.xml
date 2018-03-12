@@ -16,4 +16,8 @@
     <string name="upload_resume">Upload Resume</string>
     <string name="i_accept_all_terms_and_conditions">I accept all terms and conditions</string>
     <string name="register">Register</string>
+    <string name="job_profiles">Job Profiles</string>
+    <string name="company_name">Company Name</string>
+    <string name="location">Location</string>
+    <string name="profile">Profile</string>
 </resources>

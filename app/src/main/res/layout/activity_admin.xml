@@ -19,6 +19,13 @@
             android:text="Registered Students"
             android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewJobs"
+            android:text="View Jobs" />
+
         <ListView
             android:id="@+id/studentList"
             android:layout_width="match_parent"

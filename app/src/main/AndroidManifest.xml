@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".Admin"></activity>
+        <activity android:name=".Admin" />
+        <activity android:name=".AdminJob" />
+        <activity android:name=".CreateJob"></activity>
     </application>
 
 </manifest>

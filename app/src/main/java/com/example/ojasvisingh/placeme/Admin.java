@@ -3,9 +3,11 @@ Admin end implementation , presently diplays list of registered students
  */
 package com.example.ojasvisingh.placeme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -57,5 +59,10 @@ public class Admin extends AppCompatActivity {
 
             }
         });
+    }
+    public void viewJobs(View v)
+    {
+        Intent viewJobs=new Intent(getApplicationContext(),AdminJob.class);
+        startActivity(viewJobs);
     }
 }
