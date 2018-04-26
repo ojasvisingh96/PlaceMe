@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             String id = account.getId();
 
-            if (id.equals("102971297704242489734")){
+            if (id.equals("102971297704242489734") || id.equals("111140494376817681670")){
                 Intent intent = new Intent(getApplicationContext(), Admin.class);
                 startActivity(intent);
             }

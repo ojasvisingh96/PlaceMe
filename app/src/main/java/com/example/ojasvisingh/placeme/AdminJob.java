@@ -3,6 +3,8 @@ package com.example.ojasvisingh.placeme;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,40 +18,66 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdminJob extends AppCompatActivity {
-    ArrayList<String> jobRecs=new ArrayList<>();
-    ListView jobList;
-    ArrayAdapter jobListAd;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_job);
-        jobList=findViewById(R.id.jobListAdmin);
-        jobListAd=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,jobRecs);
-        jobList.setAdapter(jobListAd);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        //recycle view
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        final ArrayList<ArrayList<String>> myDataset = new ArrayList<>();
+
+        mAdapter = new MyAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
         CollectionReference jobsDB= FirebaseFirestore.getInstance().collection("jobs");
         jobsDB.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 for(DocumentSnapshot jobRec: documentSnapshots.getDocuments())
                 {
-                    String jobRecstr=jobRec.getData().toString();
-                    if(jobRecs.contains(jobRecstr)==false) {
-                        jobRecs.add(jobRecstr);
-                        jobListAd.notifyDataSetChanged();
-                    }
+                    ArrayList<String> temp = new ArrayList<String>();
+                    temp.add(jobRec.get("name").toString());
+                    temp.add(jobRec.get("profile").toString());
+                    temp.add(jobRec.get("ctc").toString());
+                    temp.add(jobRec.get("location").toString());
+                    temp.add(jobRec.get("date").toString());
 
+                    myDataset.add(temp);
                 }
 
+//                Log.w("recycle", myDataset.toString());
+                Log.w("recycle", "" + mAdapter.getItemCount() );
+                // specify an adapter (see also next example)
+                mAdapter.notifyDataSetChanged();
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void createJob(View v)
