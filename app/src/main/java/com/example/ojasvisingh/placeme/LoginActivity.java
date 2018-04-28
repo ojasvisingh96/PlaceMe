@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             DocumentSnapshot document = task.getResult();
                             if (document != null && document.exists()) {
                                 Log.d("success", "DocumentSnapshot data: " + document.getData());
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), Student.class);
                                 startActivity(intent);
                             } else {
                                 Log.d("Err", "No such document");

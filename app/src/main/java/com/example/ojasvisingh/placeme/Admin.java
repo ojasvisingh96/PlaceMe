@@ -1,5 +1,5 @@
 /*
-Admin end implementation , presently diplays list of registered students
+Admin end implementation , presently diplays list of registered students and view jobs button to view and create new jobs
  */
 package com.example.ojasvisingh.placeme;
 

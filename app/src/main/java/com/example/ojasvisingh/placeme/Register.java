@@ -3,6 +3,7 @@ Creates a registeration screen for first time users. Once the user fills all the
  */
 package com.example.ojasvisingh.placeme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -56,6 +57,8 @@ public class Register extends AppCompatActivity {
                 @Override
                 public void onSuccess(Object o) {
                     Toast.makeText(getApplicationContext(),"Successfully Registered !!!",Toast.LENGTH_LONG).show();
+                    Intent studentHome=new Intent(getApplicationContext(),Student.class);
+                    startActivity(studentHome);
                 }
             };
             studentRec.put("name",nameRegister);

@@ -1,3 +1,6 @@
+/*
+Creates new job opening after admin fills in required details
+ */
 package com.example.ojasvisingh.placeme;
 
 import android.content.Intent;

@@ -1,6 +1,8 @@
 package com.example.ojasvisingh.placeme;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView name;
         public TextView profile;
@@ -38,6 +40,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             ctc = (TextView) v.findViewById(R.id.ctc);
             location = (TextView) v.findViewById(R.id.location);
             date = (TextView) v.findViewById(R.id.date);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Log.d("context",view.getContext().getClass().getName());
+            if(view.getContext().getClass()==Student.class)
+            {
+                Log.d("class","student");
+                Intent jobDetails=new Intent(view.getContext(),JobDetails.class);
+                jobDetails.putExtra("comp",name.getText().toString());
+                view.getContext().startActivity(jobDetails);
+
+            }
+            else
+            {
+                Intent jobDetails=new Intent(view.getContext(),AdminJobDetails.class);
+                jobDetails.putExtra("comp",name.getText().toString());
+                view.getContext().startActivity(jobDetails);
+
+            }
         }
     }
 

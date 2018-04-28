@@ -20,7 +20,13 @@
         <activity android:name=".Register" />
         <activity android:name=".Admin" />
         <activity android:name=".AdminJob" />
-        <activity android:name=".CreateJob"></activity>
+        <activity android:name=".CreateJob" />
+        <activity android:name=".Student" />
+        <activity android:name=".JobDetails" />
+        <activity android:name=".AdminJobDetails" />
+        <activity android:name=".EditProcess" />
+        <activity android:name=".MarkAttendance" />
+        <activity android:name=".EnrolledJobs"></activity>
     </application>
 
 </manifest>
