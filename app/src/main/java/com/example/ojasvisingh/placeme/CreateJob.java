@@ -3,10 +3,13 @@ Creates new job opening after admin fills in required details
  */
 package com.example.ojasvisingh.placeme;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +21,25 @@ import java.util.HashMap;
 
 public class CreateJob extends AppCompatActivity {
 
+    private EditText jobDateAdmin;
+
+    private DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            jobDateAdmin.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year);
+        }
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_job);
+
+        jobDateAdmin = (EditText) findViewById(R.id.jobDateAdmin);
     }
     public void createJobConfirm(View v)
     {
@@ -54,7 +72,10 @@ public class CreateJob extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please complete all the details",Toast.LENGTH_LONG).show();
         }
 
+    }
 
-
+    public void onDateClick(View v){
+        new DatePickerDialog(this, dateListener, 2018, 04,
+                28).show();
     }
 }
