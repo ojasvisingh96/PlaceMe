@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Log.d("yolo", "handleSignInResult: working in try ");
 
-
+//            id.equals("102971297704242489734") || id.equals("111140494376817681670") || id.equals("111518423611684367869") all the admin codes
             String id = account.getId();
 
             if (id.equals("111140494376817681670")){
