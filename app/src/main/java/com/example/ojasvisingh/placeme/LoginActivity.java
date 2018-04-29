@@ -105,10 +105,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
+            Log.d("yolo", "handleSignInResult: working in try ");
             String id = account.getId();
 
-            if (id.equals("102971297704242489734") || id.equals("111140494376817681670")){
+            if (id.equals("102971297704242489734") || id.equals("111140494376817681670") || id.equals("111518423611684367869")){
                 Intent intent = new Intent(getApplicationContext(), Admin.class);
                 startActivity(intent);
             }
