@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Log.d("Login","login");
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -48,7 +50,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         if (account == null) {
-
+            Log.d("account", "no account logged in");
+        }
+        else if (account.getId().equals("102971297704242489734") || account.getId().equals("111140494376817681670")){
+            Intent intent = new Intent(getApplicationContext(), Admin.class);
+            startActivity(intent);
         }
         else {
             CollectionReference studentDB= FirebaseFirestore.getInstance().collection("students");
@@ -60,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         DocumentSnapshot document = task.getResult();
                         if (document != null && document.exists()) {
                             Log.d("success", "DocumentSnapshot data: " + document.getData());
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), Student.class);
                             startActivity(intent);
                         } else {
                             Log.d("Err", "No such document");
