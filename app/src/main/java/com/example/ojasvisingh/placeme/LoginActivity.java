@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //            id.equals("102971297704242489734") || id.equals("111140494376817681670") || id.equals("111518423611684367869") all the admin codes
             String id = account.getId();
 
-            if (id.equals("111140494376817681670")){
+            if (id.equals("111140494376817681670") || id.equals("111518423611684367869")){
                 Intent intent = new Intent(getApplicationContext(), Admin.class);
                 startActivity(intent);
             }
@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             DocumentSnapshot document = task.getResult();
                             if (document != null && document.exists()) {
                                 Log.d("success", "DocumentSnapshot data: " + document.getData());
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), Student.class);
                                 startActivity(intent);
                             } else {
                                 Log.d("Err", "No such document");
