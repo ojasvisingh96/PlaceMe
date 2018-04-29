@@ -4,16 +4,23 @@ Student's home page where all the job openings are listed and at the bottom is a
 package com.example.ojasvisingh.placeme;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,6 +38,9 @@ public class Student extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     String name,branch,degree,roll;
     float cgpa;
+
+
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +63,14 @@ public class Student extends AppCompatActivity {
             }
         });
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
+
     public void getJobOpenings()
     {
         mRecyclerView = (RecyclerView) findViewById(R.id.jobsListStudent);
@@ -73,13 +88,19 @@ public class Student extends AppCompatActivity {
                 for(DocumentSnapshot jobRec: documentSnapshots.getDocuments())
                 {
                     ArrayList<String> temp = new ArrayList<String>();
-                    temp.add(jobRec.get("name").toString());
-                    temp.add(jobRec.get("profile").toString());
-                    temp.add(jobRec.get("ctc").toString());
-                    temp.add(jobRec.get("location").toString());
-                    temp.add(jobRec.get("date").toString());
 
-                    myDataset.add(temp);
+                    // check if student's CGPA >= minCGPA
+                    if (Float.compare(Float.parseFloat(jobRec.get("minCGPA").toString()), cgpa) <= 0 ){
+                        temp.add(jobRec.get("name").toString());
+                        temp.add(jobRec.get("profile").toString());
+                        temp.add(jobRec.get("ctc").toString());
+                        temp.add(jobRec.get("location").toString());
+                        temp.add(jobRec.get("date").toString());
+                        temp.add(jobRec.get("minCGPA").toString());
+
+                        myDataset.add(temp);
+                    }
+
                 }
 
 //                Log.w("recycle", myDataset.toString());
@@ -93,9 +114,15 @@ public class Student extends AppCompatActivity {
     }
     public void signOut(View v)
     {
-        Intent signOut=new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(signOut);
-
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        Toast.makeText(getApplicationContext(), "Successfully signed out", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
     }
     public void enrolledJobs(View v)
     {

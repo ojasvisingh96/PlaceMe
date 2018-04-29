@@ -48,7 +48,8 @@ public class CreateJob extends AppCompatActivity {
         String jobProfile=((TextView)findViewById(R.id.jobProfileAdmin)).getText().toString();
         String jobCtc=((TextView)findViewById(R.id.jobCtcAdmin)).getText().toString();
         String jobDate=((TextView)findViewById(R.id.jobDateAdmin)).getText().toString();
-        if(jobCompany.equals("")==false && jobLocation.equals("")==false&&jobProfile.equals("")==false&&jobCtc.equals("")==false&&jobDate.equals("")==false)
+        String jobMinCGPA = ((TextView)findViewById(R.id.jobMinCGPA)).getText().toString();
+        if(jobCompany.equals("")==false && jobLocation.equals("")==false&&jobProfile.equals("")==false&&jobCtc.equals("")==false&&jobDate.equals("")==false&&jobMinCGPA.equals("")==false)
         {
             DocumentReference jobsDB= FirebaseFirestore.getInstance().document("jobs/" + jobCompany);
             HashMap<String,String> jobRec=new HashMap<>();
@@ -65,6 +66,7 @@ public class CreateJob extends AppCompatActivity {
             jobRec.put("profile",jobProfile);
             jobRec.put("ctc",jobCtc);
             jobRec.put("date",jobDate);
+            jobRec.put("minCGPA",jobMinCGPA);
             jobsDB.set(jobRec).addOnSuccessListener(insertRec);
         }
         else

@@ -63,6 +63,7 @@ public class AdminJob extends AppCompatActivity {
                     temp.add(jobRec.get("ctc").toString());
                     temp.add(jobRec.get("location").toString());
                     temp.add(jobRec.get("date").toString());
+                    temp.add(jobRec.get("minCGPA").toString());
 
                     myDataset.add(temp);
                 }
