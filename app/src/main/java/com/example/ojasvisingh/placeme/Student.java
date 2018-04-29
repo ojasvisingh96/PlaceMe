@@ -5,6 +5,9 @@ package com.example.ojasvisingh.placeme;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Student extends AppCompatActivity {
+public class Student extends AppCompatActivity  {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -49,25 +52,61 @@ public class Student extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         String personId = acct.getId();
         DocumentReference studentDB= FirebaseFirestore.getInstance().document("students/" + personId);      //fetching my record
-        studentDB.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                name=documentSnapshot.getString("name");
-                branch=documentSnapshot.getString("branch");
-                degree=documentSnapshot.getString("degree");
-                roll=documentSnapshot.getString("roll");
-                cgpa=Float.parseFloat(documentSnapshot.getString("cgpa"));
-                Log.d("My record ",name+" "+branch+" "+degree+" "+roll+" "+cgpa);
-                getJobOpenings();
+            studentDB.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                    name=documentSnapshot.getString("name");
+                    branch=documentSnapshot.getString("branch");
+                    degree=documentSnapshot.getString("degree");
+                    roll=documentSnapshot.getString("roll");
+                    cgpa=Float.parseFloat(documentSnapshot.getString("cgpa"));
+                    Log.d("My record ",name+" "+branch+" "+degree+" "+roll+" "+cgpa);
+//                    getJobOpenings();
 
-            }
-        });
+                }
+            });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+        TabLayout tabLayout =
+                (TabLayout) findViewById(R.id.tab_layout);
+
+        tabLayout.addTab(tabLayout.newTab().setText("OPENINGS"));
+        tabLayout.addTab(tabLayout.newTab().setText("ENROLLED"));
+        tabLayout.addTab(tabLayout.newTab().setText("STATISTICS"));
+
+        final ViewPager viewPager =
+                (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new TabPagerAdapter
+                (getSupportFragmentManager(),
+                        tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new
+                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new
+                                                   TabLayout.OnTabSelectedListener() {
+                                                       @Override
+                                                       public void onTabSelected(TabLayout.Tab tab) {
+                                                           viewPager.setCurrentItem(tab.getPosition());
+                                                       }
+
+                                                       @Override
+                                                       public void onTabUnselected(TabLayout.Tab tab) {
+
+                                                       }
+
+                                                       @Override
+                                                       public void onTabReselected(TabLayout.Tab tab) {
+
+                                                       }
+                                                   });
+
 
     }
 
@@ -131,4 +170,7 @@ public class Student extends AppCompatActivity {
         startActivity(enrolledJobs);
 
     }
+
+
 }
+

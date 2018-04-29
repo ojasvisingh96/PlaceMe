@@ -4,48 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.ojasvisingh.placeme.Student">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <LinearLayout
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:padding="10dp">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/textView10"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Job Openings"-->
+                <!--android:textSize="18sp" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/signOut"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:onClick="signOut"-->
+                <!--android:text="SignOut" />-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/jobsListStudent"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" >-->
+
+            <!--</android.support.v7.widget.RecyclerView>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/enrollJobsStudent"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:onClick="enrolledJobs"-->
+                <!--android:text="Enrolled Jobs" />-->
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/AppTheme">
+
+        <!--<android.support.v7.widget.Toolbar android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--app:popupTheme="@style/AppTheme" />-->
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Job Openings"
-                android:textSize="18sp" />
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+    <!--<include layout="@layout/content_tab_layout_demo" />-->
 
-            <Button
-                android:id="@+id/signOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:onClick="signOut"
-                android:text="SignOut" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/jobsListStudent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-            </android.support.v7.widget.RecyclerView>
-
-            <Button
-                android:id="@+id/enrollJobsStudent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="enrolledJobs"
-                android:text="Enrolled Jobs" />
-        </LinearLayout>
-    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
