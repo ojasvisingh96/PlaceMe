@@ -73,13 +73,19 @@ public class Student extends AppCompatActivity {
                 for(DocumentSnapshot jobRec: documentSnapshots.getDocuments())
                 {
                     ArrayList<String> temp = new ArrayList<String>();
-                    temp.add(jobRec.get("name").toString());
-                    temp.add(jobRec.get("profile").toString());
-                    temp.add(jobRec.get("ctc").toString());
-                    temp.add(jobRec.get("location").toString());
-                    temp.add(jobRec.get("date").toString());
 
-                    myDataset.add(temp);
+                    // check if student's CGPA >= minCGPA
+                    if (Float.compare(Float.parseFloat(jobRec.get("minCGPA").toString()), cgpa) <= 0 ){
+                        temp.add(jobRec.get("name").toString());
+                        temp.add(jobRec.get("profile").toString());
+                        temp.add(jobRec.get("ctc").toString());
+                        temp.add(jobRec.get("location").toString());
+                        temp.add(jobRec.get("date").toString());
+                        temp.add(jobRec.get("minCGPA").toString());
+
+                        myDataset.add(temp);
+                    }
+
                 }
 
 //                Log.w("recycle", myDataset.toString());

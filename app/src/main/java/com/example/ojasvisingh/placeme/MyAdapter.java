@@ -29,6 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView ctc;
         public TextView location;
         public TextView date;
+        public TextView minCGPA;
 
         public View layout;
 
@@ -40,6 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             ctc = (TextView) v.findViewById(R.id.ctc);
             location = (TextView) v.findViewById(R.id.location);
             date = (TextView) v.findViewById(R.id.date);
+            minCGPA = (TextView) v.findViewById(R.id.minCGPA);
             v.setOnClickListener(this);
         }
 
@@ -108,6 +110,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.ctc.setText(value.get(2));
         holder.location.setText(value.get(3));
         holder.date.setText(value.get(4));
+        holder.minCGPA.setText(value.get(5));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
