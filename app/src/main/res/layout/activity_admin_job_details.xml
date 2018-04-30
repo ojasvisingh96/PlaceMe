@@ -31,5 +31,12 @@
             android:layout_height="wrap_content"
             android:onClick="markAttendance"
             android:text="Attendance" />
+
+        <Button
+            android:id="@+id/QuestionsAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewQuestionBank"
+            android:text="View Question Bank" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

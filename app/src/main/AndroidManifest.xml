@@ -27,7 +27,8 @@
         <activity android:name=".EditProcess" />
         <activity android:name=".MarkAttendance" />
         <activity android:name=".EnrolledJobs" />
-        <activity android:name=".Feedback"></activity>
+        <activity android:name=".Feedback" />
+        <activity android:name=".QuestionBank"></activity>
     </application>
 
 </manifest>

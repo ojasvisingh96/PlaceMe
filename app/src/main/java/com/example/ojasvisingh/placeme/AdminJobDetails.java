@@ -35,4 +35,11 @@ public class AdminJobDetails extends AppCompatActivity {
         editProcess.putExtra("comp",name);
         startActivity(editProcess);
     }
+
+    public void viewQuestionBank(View v)
+    {
+        Intent viewQuestionBank=new Intent(v.getContext(),QuestionBank.class);
+        viewQuestionBank.putExtra("comp",name);
+        startActivity(viewQuestionBank);
+    }
 }
