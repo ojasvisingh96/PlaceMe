@@ -3,6 +3,7 @@ Displays to student the job openings he/she applied for and the stage at which e
  */
 package com.example.ojasvisingh.placeme;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -93,7 +94,7 @@ public class EnrolledJobs extends AppCompatActivity {
     }
 }
 
-class EnrolledJob extends RecyclerView.ViewHolder{  //view holder for recycler view
+class EnrolledJob extends RecyclerView.ViewHolder implements View.OnClickListener {  //view holder for recycler view
     TextView name;
     TextView date;
     TextView time;
@@ -108,12 +109,23 @@ class EnrolledJob extends RecyclerView.ViewHolder{  //view holder for recycler v
         time=itemView.findViewById(R.id.enrollTime);
         stage=itemView.findViewById(R.id.enrollStage);
         result=itemView.findViewById(R.id.enrollResult);
-
+        itemView.setOnClickListener(this);
 
 
 
     }
 
+    @Override
+    public void onClick(View view) {
+        if(stage.getText().toString().equals("TBD")==false&&stage.getText().toString().equals("PPT")==false)
+        {
+            Intent qb=new Intent(view.getContext(),Feedback.class);
+            qb.putExtra("comp",name.getText().toString());
+            view.getContext().startActivity(qb);
+        }
+
+
+    }
 }
 
 class EnrolledJobAdapter extends RecyclerView.Adapter<EnrolledJob>     //Adapter for recycler view

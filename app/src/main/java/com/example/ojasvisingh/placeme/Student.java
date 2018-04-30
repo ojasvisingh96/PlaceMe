@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Student extends AppCompatActivity  {
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -51,27 +52,27 @@ public class Student extends AppCompatActivity  {
         setContentView(R.layout.activity_student);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         String personId = acct.getId();
-        DocumentReference studentDB= FirebaseFirestore.getInstance().document("students/" + personId);      //fetching my record
-            studentDB.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
-                    name=documentSnapshot.getString("name");
-                    branch=documentSnapshot.getString("branch");
-                    degree=documentSnapshot.getString("degree");
-                    roll=documentSnapshot.getString("roll");
-                    cgpa=Float.parseFloat(documentSnapshot.getString("cgpa"));
-                    Log.d("My record ",name+" "+branch+" "+degree+" "+roll+" "+cgpa);
-//                    getJobOpenings();
-
-                }
-            });
-
+//        DocumentReference studentDB= FirebaseFirestore.getInstance().document("students/" + personId);      //fetching my record
+//            studentDB.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
+//                @Override
+//                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+//                    name=documentSnapshot.getString("name");
+//                    branch=documentSnapshot.getString("branch");
+//                    degree=documentSnapshot.getString("degree");
+//                    roll=documentSnapshot.getString("roll");
+//                    cgpa=Float.parseFloat(documentSnapshot.getString("cgpa"));
+//                    Log.d("My record ",name+" "+branch+" "+degree+" "+roll+" "+cgpa);
+////                    getJobOpenings();
+//
+//                }
+//            });
+//
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+//
 
         TabLayout tabLayout =
                 (TabLayout) findViewById(R.id.tab_layout);
@@ -79,12 +80,25 @@ public class Student extends AppCompatActivity  {
         tabLayout.addTab(tabLayout.newTab().setText("OPENINGS"));
         tabLayout.addTab(tabLayout.newTab().setText("ENROLLED"));
         tabLayout.addTab(tabLayout.newTab().setText("STATISTICS"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ArrayList<ArrayList<String>> myDataset = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<String>();
+        temp.add("name");
+        temp.add("profile");
+        temp.add("ctc");
+        temp.add("location");
+        temp.add(("date"));
+        temp.add("minCGPA");
+        myDataset.add(temp);
+
 
         final ViewPager viewPager =
                 (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new TabPagerAdapter
                 (getSupportFragmentManager(),
-                        tabLayout.getTabCount());
+                        tabLayout.getTabCount(),myDataset);
+
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new
@@ -170,6 +184,10 @@ public class Student extends AppCompatActivity  {
         startActivity(enrolledJobs);
 
     }
+    public void submit_req(View view) {
+        Toast.makeText(this,"Submitted request to Admin",Toast.LENGTH_LONG).show();
+    }
+
 
 
 }

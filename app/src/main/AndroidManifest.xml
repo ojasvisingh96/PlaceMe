@@ -26,7 +26,8 @@
         <activity android:name=".AdminJobDetails" />
         <activity android:name=".EditProcess" />
         <activity android:name=".MarkAttendance" />
-        <activity android:name=".EnrolledJobs"></activity>
+        <activity android:name=".EnrolledJobs" />
+        <activity android:name=".Feedback"></activity>
     </application>
 
 </manifest>

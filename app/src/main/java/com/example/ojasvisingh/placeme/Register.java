@@ -77,4 +77,18 @@ public class Register extends AppCompatActivity {
 
 
     }
+
+    public void upload_cv(View view) {
+        Intent upload=new Intent(Intent.ACTION_GET_CONTENT);
+        upload.setType("application/pdf");
+        startActivityForResult(upload,2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==2)
+            Toast.makeText(getApplicationContext(),"Uploaded Successfully",Toast.LENGTH_LONG).show();
+
+    }
 }

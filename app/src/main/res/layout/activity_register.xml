@@ -194,6 +194,7 @@
                 android:id="@+id/cvRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="upload_cv"
                 android:text="@string/upload_resume" />
 
             <CheckBox

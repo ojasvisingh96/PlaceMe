@@ -18,6 +18,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private ArrayList<ArrayList<String>> values;
+//    private final ItemFragment.OnListFragmentInteractionListener interactionListener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and

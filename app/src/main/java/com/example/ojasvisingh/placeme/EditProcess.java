@@ -89,9 +89,9 @@ public class EditProcess extends AppCompatActivity {
     }
     public void confirmProcess(View v)
     {
-        TextView date=((TextView)findViewById(R.id.dateProcess));
-        TextView time=((TextView)findViewById(R.id.timeProcess));
-        TextView stage=((TextView)findViewById(R.id.stagesProcess));
+        final TextView date=((TextView)findViewById(R.id.dateProcess));
+        final TextView time=((TextView)findViewById(R.id.timeProcess));
+        final TextView stage=((TextView)findViewById(R.id.stagesProcess));
         final DocumentReference processDB= FirebaseFirestore.getInstance().document("process/" +name);
         processDB.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -106,34 +106,35 @@ public class EditProcess extends AppCompatActivity {
 
                     }
                 }
+                if(shortlisted.size()>0&&date!=null&&time!=null&&stage!=null)
+                {
+                    HashMap<String,String> stageDetails=new HashMap<>();
+                    stageDetails.put("date",date.getText().toString());
+                    stageDetails.put("time",time.getText().toString());
+                    stageDetails.put("stage",stage.getText().toString());
+                    for(String id:shortlisted)
+                    {
+                        stageDetails.put(id,"false");
+                    }
+                    processDB.set(stageDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(),"Successfully Updated To Next Stage",Toast.LENGTH_LONG).show();
+
+
+                        }
+                    });
+
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Please fill all the fields and select at least one for next stage",Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });
-        if(shortlisted.size()>0&&date!=null&&time!=null&&stage!=null)
-        {
-            HashMap<String,String> stageDetails=new HashMap<>();
-            stageDetails.put("date",date.getText().toString());
-            stageDetails.put("time",time.getText().toString());
-            stageDetails.put("stage",stage.getText().toString());
-            for(String id:shortlisted)
-            {
-                stageDetails.put(id,"false");
-            }
-            processDB.set(stageDetails).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(getApplicationContext(),"Successfully Updated To Next Stage",Toast.LENGTH_LONG).show();
 
-
-                }
-            });
-
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(),"Please fill all the fields and select at least one for next stage",Toast.LENGTH_LONG).show();
-
-        }
 
 
     }

@@ -25,13 +25,15 @@
                 <!--android:text="Job Openings"-->
                 <!--android:textSize="18sp" />-->
 
-            <!--<Button-->
-                <!--android:id="@+id/signOut"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="right"-->
-                <!--android:onClick="signOut"-->
-                <!--android:text="SignOut" />-->
+    <!--<Button-->
+        <!--android:id="@+id/signOut"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:onClick="signOut"-->
+        <!--android:text="SignOut"-->
+        <!--tools:layout_editor_absoluteX="296dp"-->
+        <!--tools:layout_editor_absoluteY="0dp" />-->
 
             <!--<android.support.v7.widget.RecyclerView-->
                 <!--android:id="@+id/jobsListStudent"-->

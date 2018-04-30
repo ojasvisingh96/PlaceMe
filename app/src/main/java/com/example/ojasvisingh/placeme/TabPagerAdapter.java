@@ -3,15 +3,19 @@ package com.example.ojasvisingh.placeme;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
-public class TabPagerAdapter extends FragmentPagerAdapter {
+import java.util.ArrayList;
+
+public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     int tabCount;
-
-    public TabPagerAdapter(FragmentManager fm, int numberOfTabs) {
+    ArrayList<ArrayList<String>> dataset;
+    public TabPagerAdapter(FragmentManager fm, int numberOfTabs,ArrayList<ArrayList<String>> myDataset) {
         super(fm);
         this.tabCount = numberOfTabs;
+        this.dataset=myDataset;
     }
 
     @Override
