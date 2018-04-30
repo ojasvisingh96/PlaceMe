@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,14 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CreateJob extends AppCompatActivity {
 
     private EditText jobDateAdmin;
+    private EditText jobCompanyName;
+    String name;
 
     private DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -40,6 +49,16 @@ public class CreateJob extends AppCompatActivity {
         setContentView(R.layout.activity_create_job);
 
         jobDateAdmin = (EditText) findViewById(R.id.jobDateAdmin);
+        jobCompanyName = (EditText) findViewById(R.id.jobCompanyAdmin);
+
+        name=getIntent().getStringExtra("comp");
+
+        if (name!=null){
+            jobCompanyName.setText(name);
+            jobCompanyName.setFocusable(false);
+            jobCompanyName.setClickable(false);
+        }
+
     }
     public void createJobConfirm(View v)
     {
@@ -49,6 +68,7 @@ public class CreateJob extends AppCompatActivity {
         String jobCtc=((TextView)findViewById(R.id.jobCtcAdmin)).getText().toString();
         String jobDate=((TextView)findViewById(R.id.jobDateAdmin)).getText().toString();
         String jobMinCGPA = ((TextView)findViewById(R.id.jobMinCGPA)).getText().toString();
+
         if(jobCompany.equals("")==false && jobLocation.equals("")==false&&jobProfile.equals("")==false&&jobCtc.equals("")==false&&jobDate.equals("")==false&&jobMinCGPA.equals("")==false)
         {
             DocumentReference jobsDB= FirebaseFirestore.getInstance().document("jobs/" + jobCompany);

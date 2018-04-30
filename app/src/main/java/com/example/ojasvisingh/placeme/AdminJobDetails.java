@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class AdminJobDetails extends AppCompatActivity {
+
     String name;
 
     @Override
@@ -19,13 +20,19 @@ public class AdminJobDetails extends AppCompatActivity {
         Intent editProcess=new Intent(v.getContext(),EditProcess.class);
         editProcess.putExtra("comp",name);
         startActivity(editProcess);
-
     }
+
     public void markAttendance(View v)
     {
         Intent editProcess=new Intent(v.getContext(),MarkAttendance.class);
         editProcess.putExtra("comp",name);
         startActivity(editProcess);
+    }
 
+    public void editJobDetails(View v)
+    {
+        Intent editProcess=new Intent(v.getContext(),CreateJob.class);
+        editProcess.putExtra("comp",name);
+        startActivity(editProcess);
     }
 }

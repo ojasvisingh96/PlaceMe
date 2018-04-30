@@ -15,7 +15,8 @@
             android:id="@+id/editJobDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Job Details" />
+            android:text="Edit Job Details"
+            android:onClick="editJobDetails"/>
 
         <Button
             android:id="@+id/editProcess"
