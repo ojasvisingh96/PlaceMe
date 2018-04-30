@@ -25,6 +25,7 @@ public class MyOtherAdapter extends RecyclerView.Adapter<MyOtherAdapter.ViewHold
         public TextView degree;
         public TextView branch;
         public TextView cgpa;
+        public TextView defaulter;
 
         public View layout;
 
@@ -36,6 +37,7 @@ public class MyOtherAdapter extends RecyclerView.Adapter<MyOtherAdapter.ViewHold
             degree = (TextView) v.findViewById(R.id.degree);
             branch = (TextView) v.findViewById(R.id.branch);
             cgpa = (TextView) v.findViewById(R.id.cgpa);
+            defaulter = (TextView) v.findViewById(R.id.defaulter);
         }
     }
 
@@ -83,6 +85,7 @@ public class MyOtherAdapter extends RecyclerView.Adapter<MyOtherAdapter.ViewHold
         holder.degree.setText(value.get(2));
         holder.branch.setText(value.get(3));
         holder.cgpa.setText(value.get(4));
+        holder.defaulter.setText(value.get(5));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

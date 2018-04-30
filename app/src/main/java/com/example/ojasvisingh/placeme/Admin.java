@@ -76,6 +76,13 @@ public class Admin extends AppCompatActivity {
                     temp.add(jobRec.get("branch").toString());
                     temp.add(jobRec.get("cgpa").toString());
 
+                    if (jobRec.get("defaulter")!=null){
+                        temp.add("Yes");
+                    }
+                    else{
+                        temp.add("No");
+                    }
+
                     myDataset.add(temp);
                 }
 
